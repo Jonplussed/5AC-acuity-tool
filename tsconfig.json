@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "noEmit": true,
+    "allowImportingTsExtensions": true
+  },
+
+  "files": [
+    "main.ts",
+    "modules/assignment.ts",
+    "modules/patient.ts",
+    "modules/status.ts"
+  ]
+}

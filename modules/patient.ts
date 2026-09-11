@@ -1,11 +1,11 @@
-import * as S from "./status.ts"
+import * as S from "./status.js"
 
-type Patient = {
+export type Patient = {
   acuity: number;
   room: string;
   status: S.Status;
 }
 
-const sortByAcuity = function(p: Patient, q: Patient): number {
+export const sortByAcuity = function(p: Patient, q: Patient): number {
   return p.acuity - q.acuity;
 }

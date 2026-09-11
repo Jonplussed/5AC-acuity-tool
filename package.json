@@ -2,8 +2,20 @@
   "name": "5AC acuity tool",
   "version": "0.0.1",
   "main": "main.ts",
-
   "dependencies": {
-    "typescript": "^7.0.2"
-  }
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.0"
+  },
+  "scripts": {
+    "test": "vitest"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.2"
+  },
+  "files": [
+    "modules/status.ts",
+    "modules/patient.ts",
+    "modules/assignment.ts",
+    "main.ts"
+  ]
 }

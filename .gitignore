@@ -1,9 +1,16 @@
+# Node stuff
 node_modules/
+.npm
 
+# typescript products
+*.js
+*.js.map
+
+# testing and linting
+.eslintcache
+.vitest
 *.log
 
-.npm
-.eslintcache
-
+# Mac stuff
 .DS_Store
 Thumbs.db

@@ -1,5 +1,5 @@
-import * as S from "./status.ts"
-import * as P from "./patient.ts"
+import * as S from "./status.js"
+import * as P from "./patient.js"
 
 const MAX_MS_PATIENT_COUNT = 4;
 const MAX_IMC_PATIENT_COUNT = 3;
@@ -14,9 +14,9 @@ export type Assignment = {
 
 export const hasMaxPatients = function(a: Assignment): boolean {
   switch (a.highestStatus) {
-    case PatientStatus.MS:
+    case S.Status.MS:
       return a.patientCount >= MAX_MS_PATIENT_COUNT;
-    case PatientStatus.IMC;
+    case S.Status.IMC:
       return a.patientCount >= MAX_IMC_PATIENT_COUNT;
   }
 }
