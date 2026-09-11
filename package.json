@@ -1,0 +1,9 @@
+{
+  "name": "5AC acuity tool",
+  "version": "0.0.1",
+  "main": "main.ts",
+
+  "dependencies": {
+    "typescript": "^7.0.2"
+  }
+}
