@@ -4,9 +4,12 @@ export enum Status {
 }
 
 export const fromString = function(s: string): Status {
-  if (s in Status) {
-    return Status[s.toUpperCase() as keyof typeof Status];
+  switch (s.toUpperCase()) {
+    case "MS":
+      return Status.MS;
+    case "IMC":
+      return Status.IMC;
+    default:
+      throw new Error(`Cannot convert "${s}" into patient status.`);
   }
-
-  throw new Error(`Cannot convert "${s}" into patient status.`);
 }
