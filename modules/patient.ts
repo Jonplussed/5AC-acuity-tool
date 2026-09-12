@@ -6,6 +6,10 @@ export type Patient = {
   status: S.Status;
 }
 
-export const sortByAcuity = function(p: Patient, q: Patient): number {
+const compDesc = function(p: Patient, q: Patient): number {
   return p.acuity - q.acuity;
+}
+
+export const sortByAcuity(p: Patient[]): Patient[] {
+  return p.toSorted(compDesc);
 }
