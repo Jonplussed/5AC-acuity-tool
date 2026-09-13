@@ -1,15 +1,16 @@
 import * as S from "./status.js"
 
 export type Patient = {
-  acuity: number;
-  room: string;
-  status: S.Status;
+  acuity: number,
+  roomNum: number,
+  bedNum: number,
+  status: S.Status,
 }
 
-const compDesc = function(p: Patient, q: Patient): number {
-  return p.acuity - q.acuity;
+const compareAcuityDesc = function(p: Patient, q: Patient): number {
+  return q.acuity - p.acuity;
 }
 
-export const sortByAcuity(p: Patient[]): Patient[] {
-  return p.toSorted(compDesc);
+export const sortByAcuityDesc = function(p: Patient[]): Patient[] {
+  return p.toSorted(compareAcuityDesc);
 }

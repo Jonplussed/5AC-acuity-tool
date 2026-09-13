@@ -6,11 +6,15 @@ const MAX_IMC_PATIENT_COUNT = 3;
 const MAX_ASSIGNMENT_ACUITY = 11;
 
 export type Assignment = {
-  highestStatus: S.Status;
-  patientCount: number;
-  patients: P.Patient[];
-  totalAcuity: number;
+  patients: P.Patient[],
+  highestStatus: S.Status, // keep track in a future iteration
+  patientCount: number,    // keep track in a future iteration
+  totalAcuity: number,     // keep track in a future iteration
 }
+
+// const highestStatus = function(a: Assig Assignment): S.status {
+  
+// }
 
 export const hasMaxPatients = function(a: Assignment): boolean {
   switch (a.highestStatus) {
