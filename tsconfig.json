@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "strict": true,
+    "strictNullCheck": true,
     "noImplicitAny": true,
     "preserveConstEnums": true,
-    "sourceMap": true,
     "noEmit": true,
     "noUncheckedIndexedAccess": true,
     "allowImportingTsExtensions": true
