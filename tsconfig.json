@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "strict": true,
-    "strictNullCheck": true,
+    "strictNullChecks": true,
     "noImplicitAny": true,
     "preserveConstEnums": true,
     "noEmit": true,
@@ -12,6 +12,7 @@
   "files": [
     "main.ts",
     "modules/assignment.ts",
+    "modules/newtype.ts",
     "modules/patient.ts",
     "modules/status.ts"
   ]

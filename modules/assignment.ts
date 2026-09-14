@@ -1,22 +1,34 @@
+import { Newtype } from "./newtype.js"
 import * as S from "./status.js"
 import * as P from "./patient.js"
 
-const MAX_MS_PATIENT_COUNT = 4;
-const MAX_IMC_PATIENT_COUNT = 3;
-const MAX_ASSIGNMENT_ACUITY = 11;
+export type PatientCount = Newtype<number, "PatientCount">;
+export const makePatientCount = (x: number) => x as PatientCount;
 
-export type Assignment = {
+const MAX_MS_PATIENT_COUNT = makePatientCount(4);
+const MAX_IMC_PATIENT_COUNT = makePatientCount(3);
+const MAX_ASSIGNMENT_ACUITY = P.makeAcuity(11);
+
+export interface Assignment {
   patients: P.Patient[],
-  highestStatus: S.Status, // keep track in a future iteration
-  patientCount: number,    // keep track in a future iteration
-  totalAcuity: number,     // keep track in a future iteration
+
+  // These attributes could be computed on-the-fly, but we calculate on update
+  // for ease and efficiency.
+  patientCount: PatientCount,
+  highestStatus: S.Status,
+  totalAcuity: number,
 }
 
-// const highestStatus = function(a: Assig Assignment): S.status {
-  
-// }
+export const emptyAssignment = (): Assignment => {
+  return {
+    patients: [],
+    highestStatus: S.Status.MS,
+    patientCount: makePatientCount(0),
+    totalAcuity: P.makeAcuity(0),
+  }
+}
 
-export const hasMaxPatients = function(a: Assignment): boolean {
+export const hasMaxPatients = (p: P.Patient, a: Assignment): boolean => {
   switch (a.highestStatus) {
     case S.Status.MS:
       return a.patientCount >= MAX_MS_PATIENT_COUNT;
@@ -25,6 +37,6 @@ export const hasMaxPatients = function(a: Assignment): boolean {
   }
 }
 
-export const hasMaxAcuity = function(a: Assignment): boolean {
+export const hasMaxAcuity = (p: P.Patient, a: Assignment): boolean => {
   return a.totalAcuity >= MAX_ASSIGNMENT_ACUITY;
 }

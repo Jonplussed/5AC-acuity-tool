@@ -13,9 +13,10 @@
     "@types/node": "^22.20.2"
   },
   "files": [
-    "modules/status.ts",
-    "modules/patient.ts",
+    "main.ts",
     "modules/assignment.ts",
-    "main.ts"
+    "modules/patient.ts",
+    "modules/newtype.ts",
+    "modules/status.ts"
   ]
 }

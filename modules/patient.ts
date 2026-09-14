@@ -1,16 +1,26 @@
+import { Newtype } from "./newtype.js"
 import * as S from "./status.js"
 
-export type Patient = {
-  acuity: number,
-  roomNum: number,
-  bedNum: number,
-  status: S.Status,
-}
+export type Acuity = Newtype<number, "Acuity">;
+export const makeAcuity = (x: number) => x as Acuity;
 
-const compareAcuityDesc = function(p: Patient, q: Patient): number {
-  return q.acuity - p.acuity;
+export type RoomNumber = Newtype<number, "RoomNumber">;
+export const makeRoomNumber = (x: number) => x as RoomNumber;
+
+export type BedNumber = Newtype<number, "BedNumber">;
+export const makeBedNumber = (x: number) => x as BedNumber;
+
+export interface Patient {
+  room: RoomNumber,
+  bed: BedNumber,
+  status: S.Status,
+  acuity: Acuity,
 }
 
 export const sortByAcuityDesc = function(p: Patient[]): Patient[] {
   return p.toSorted(compareAcuityDesc);
+}
+
+const compareAcuityDesc = function(p: Patient, q: Patient): number {
+  return q.acuity - p.acuity;
 }
