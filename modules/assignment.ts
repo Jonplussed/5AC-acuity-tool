@@ -3,11 +3,11 @@ import * as S from "./status.js"
 import * as P from "./patient.js"
 
 export type PatientCount = Newtype<number, "PatientCount">;
-export const makePatientCount = (x: number) => x as PatientCount;
+export const asPatientCount = (x: number) => x as PatientCount;
 
-const MAX_MS_PATIENT_COUNT = makePatientCount(4);
-const MAX_IMC_PATIENT_COUNT = makePatientCount(3);
-const MAX_ASSIGNMENT_ACUITY = P.makeAcuity(11);
+const MAX_MS_PATIENT_COUNT = asPatientCount(4);
+const MAX_IMC_PATIENT_COUNT = asPatientCount(3);
+const MAX_ASSIGNMENT_ACUITY = P.asAcuity(11);
 
 export interface Assignment {
   patients: P.Patient[],
@@ -23,8 +23,8 @@ export const emptyAssignment = (): Assignment => {
   return {
     patients: [],
     highestStatus: S.Status.MS,
-    patientCount: makePatientCount(0),
-    totalAcuity: P.makeAcuity(0),
+    patientCount: asPatientCount(0),
+    totalAcuity: P.asAcuity(0),
   }
 }
 

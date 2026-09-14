@@ -5,10 +5,10 @@ import * as P from '../modules/patient.ts'
 describe('sortByAcuityDesc', () => {
   let patientGen = (a: number): Patient => {
     return {
+      roomNum: P.asRoomNumber(0),
+      bedNum: P.asBedNumber(0),
+      status: S.Status.MS,
       acuity: a,
-      roomNum: 0,
-      bedNum: 0,
-      status: S.Status.MS
     }
   }
 
