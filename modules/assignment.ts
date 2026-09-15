@@ -43,5 +43,5 @@ const isValidPatientCount = (p: P.Patient, a: Assignment): boolean => {
 
 const isValidAcuity = (p: P.Patient, a: Assignment): boolean => {
   let total = p.acuity + a.totalAcuity;
-  return total > MAX_ASSIGNMENT_ACUITY;
+  return total <= MAX_ASSIGNMENT_ACUITY;
 }
