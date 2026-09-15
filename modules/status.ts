@@ -6,6 +6,14 @@ export enum Status {
   IMC,
 }
 
+export const highest = (s1: Status, s2: Status): Status => {
+  if (s1 >= s2) {
+    return s1;
+  } else {
+    return s2;
+  };
+}
+
 export const fromString = (s: string): Status => {
   switch (s.toUpperCase()) {
     case STATUS_MS_STR: return Status.MS;

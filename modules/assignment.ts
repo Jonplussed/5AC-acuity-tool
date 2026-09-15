@@ -14,8 +14,8 @@ export interface Assignment {
 
   // These attributes could be computed on-the-fly, but we calculate on update
   // for ease and efficiency.
-  patientCount: PatientCount,
   highestStatus: S.Status,
+  totalPatients: PatientCount,
   totalAcuity: number,
 }
 
@@ -23,20 +23,25 @@ export const emptyAssignment = (): Assignment => {
   return {
     patients: [],
     highestStatus: S.Status.MS,
-    patientCount: asPatientCount(0),
+    totalPatients: asPatientCount(0),
     totalAcuity: P.asAcuity(0),
   }
 }
 
-export const hasMaxPatients = (p: P.Patient, a: Assignment): boolean => {
-  switch (a.highestStatus) {
-    case S.Status.MS:
-      return a.patientCount >= MAX_MS_PATIENT_COUNT;
-    case S.Status.IMC:
-      return a.patientCount >= MAX_IMC_PATIENT_COUNT;
+const maxPatients = (s: S.Status): PatientCount => {
+  switch (s) {
+    case S.Status.MS: { return MAX_MS_PATIENT_COUNT; }
+    case S.Status.IMC: { return MAX_IMC_PATIENT_COUNT; }
   }
 }
 
-export const hasMaxAcuity = (p: P.Patient, a: Assignment): boolean => {
-  return a.totalAcuity >= MAX_ASSIGNMENT_ACUITY;
+const isValidPatientCount = (p: P.Patient, a: Assignment): boolean => {
+  let limit = maxPatients(S.highest(p.status, a.highestStatus));
+  let total = a.totalPatients + 1;
+  return total <= limit;
+}
+
+const isValidAcuity = (p: P.Patient, a: Assignment): boolean => {
+  let total = p.acuity + a.totalAcuity;
+  return total > MAX_ASSIGNMENT_ACUITY;
 }
