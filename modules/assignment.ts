@@ -40,13 +40,13 @@ const maxPatients = (s: S.Status): PatientCount => {
   }
 }
 
-const isValidPatientCount = (p: P.Patient, a: Assignment): boolean => {
+export const isAllowedCount = (p: P.Patient, a: Assignment): boolean => {
   let limit = maxPatients(S.highest(p.status, a.highestStatus));
   let total = a.totalPatients + 1;
   return total <= limit;
 }
 
-const isValidAcuity = (p: P.Patient, a: Assignment): boolean => {
+export const isAllowAcuity = (p: P.Patient, a: Assignment): boolean => {
   let total = p.acuity + a.totalAcuity;
   return total <= MAX_ASSIGNMENT_ACUITY;
 }
