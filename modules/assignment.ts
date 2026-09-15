@@ -7,7 +7,7 @@ export const asPatientCount = (x: number) => x as PatientCount;
 
 const MAX_MS_PATIENT_COUNT = asPatientCount(4);
 const MAX_IMC_PATIENT_COUNT = asPatientCount(3);
-const MAX_ASSIGNMENT_ACUITY = P.asAcuity(11);
+const MAX_ASSIGNMENT_ACUITY = P.asAcuity(10);
 
 export interface Assignment {
   patients: P.Patient[],
@@ -40,13 +40,13 @@ const maxPatients = (s: S.Status): PatientCount => {
   }
 }
 
-export const isAllowedCount = (p: P.Patient, a: Assignment): boolean => {
+export const isValidPatientCount = (p: P.Patient, a: Assignment): boolean => {
   let limit = maxPatients(S.highest(p.status, a.highestStatus));
-  let total = a.totalPatients + 1;
-  return total <= limit;
+  let total = a.totalPatients;
+  return total < limit;
 }
 
-export const isAllowAcuity = (p: P.Patient, a: Assignment): boolean => {
+export const isValidAcuity = (p: P.Patient, a: Assignment): boolean => {
   let total = p.acuity + a.totalAcuity;
   return total <= MAX_ASSIGNMENT_ACUITY;
 }
