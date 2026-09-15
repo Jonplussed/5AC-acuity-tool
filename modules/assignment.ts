@@ -19,12 +19,17 @@ export interface Assignment {
   totalAcuity: number,
 }
 
-export const emptyAssignment = (): Assignment => {
+export const newAssignment = ({
+  patients = [],
+  highestStatus = S.Status.MS,
+  totalPatients = asPatientCount(0),
+  totalAcuity = P.asAcuity(0),
+}: Assignment): Assignment => {
   return {
-    patients: [],
-    highestStatus: S.Status.MS,
-    totalPatients: asPatientCount(0),
-    totalAcuity: P.asAcuity(0),
+    patients: patients,
+    highestStatus: highestStatus,
+    totalPatients: totalPatients,
+    totalAcuity: totalAcuity,
   }
 }
 

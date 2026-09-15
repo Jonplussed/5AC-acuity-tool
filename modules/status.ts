@@ -11,7 +11,7 @@ export const highest = (s1: Status, s2: Status): Status => {
     return s1;
   } else {
     return s2;
-  };
+  }
 }
 
 export const fromString = (s: string): Status => {

@@ -3,19 +3,10 @@ import * as S from '../modules/status.ts'
 import * as P from '../modules/patient.ts'
 
 describe('sortByAcuityDesc', () => {
-  let patientGen = (a: number): Patient => {
-    return {
-      roomNum: P.asRoomNumber(0),
-      bedNum: P.asBedNumber(0),
-      status: S.Status.MS,
-      acuity: a,
-    }
-  }
-
   test('Sort patients from highest to lowest acuity.', () => {
-    let p1 = patientGen(1);
-    let p2 = patientGen(2);
-    let p3 = patientGen(3);
+    let p1 = P.newPatient({ acuity: 1 });
+    let p2 = P.newPatient({ acuity: 2 });
+    let p3 = P.newPatient({ acuity: 3 });
 
     expect(P.sortByAcuityDesc([p2, p1, p3])).toStrictEqual([p3, p2, p1]);
   });

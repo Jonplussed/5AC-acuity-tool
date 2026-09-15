@@ -17,10 +17,24 @@ export interface Patient {
   acuity: Acuity,
 }
 
-export const sortByAcuityDesc = function(p: Patient[]): Patient[] {
+export const newPatient = ({
+  room = asRoomNumber(0),
+  bed = asBedNumber(0),
+  status = S.Status.MS,
+  acuity = asAcuity(0)
+}: Patient): Patient => {
+  return {
+    room: room,
+    bed: bed,
+    status: status,
+    acuity: acuity,
+  }
+}
+
+export const sortByAcuityDesc = (p: Patient[]): Patient[] => {
   return p.toSorted(compareAcuityDesc);
 }
 
-const compareAcuityDesc = function(p: Patient, q: Patient): number {
+const compareAcuityDesc = (p: Patient, q: Patient): number => {
   return q.acuity - p.acuity;
 }
