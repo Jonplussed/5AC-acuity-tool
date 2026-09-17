@@ -3,38 +3,49 @@ import * as S from '../modules/status.ts'
 import * as P from '../modules/patient.ts'
 import * as A from '../modules/assignment.ts'
 
+describe('insert()', () => {
+  let a = A.empty();
+  let p1 = P.create({ room: 1, acuity: 4, status: S.Status.MS });
+  let p2 = P.create({ room: 2, acuity: 9, status: S.Status.IMC });
 
-describe('isValidPatientCount()', () => {
-  describe('when the patient is IMC', () => {
-    let patient = P.newPatient({ status: S.Status.IMC })
-    let validAssign = A.newAssignment({ totalPatients: 2 });
-    let invalidAssign = A.newAssignment({ totalPatients: 3 });
+  describe('with one patient', () => {
+    A.insert(a, p1);
 
-    test('the assignment is limited to 3 patients.', () => {
-      expect(A.isValidPatientCount(patient, validAssign)).toBe(true);
-      expect(A.isValidPatientCount(patient, invalidAssign)).toBe(false);
+    describe('adds the patients to the patients array', () => {
+      expect(a.patients).toBe([p1]);
+    });
+
+    describe('updates the total patients', () => {
+      expect(a.totalPatients).toBe(1);
+    });
+
+    describe('updates the total acuity', () => {
+      expect(a.totalAcuity).toBe(4);
+    });
+
+    describe('updates the highest status', () => {
+      expect(a.totalPatients).toBe(S.Status.MS);
     });
   });
 
-  describe('when the patient is MS', () => {
-    let patient = P.newPatient({ status: S.Status.MS})
-    let validAssign = A.newAssignment({ totalPatients: 3 });
-    let invalidAssign = A.newAssignment({ totalPatients: 4 });
+  describe('with two patients', () => {
+    A.insert(a, p2);
+    A.insert(a, p1);
 
-    test('the assignment is limited to 3 patients.', () => {
-      expect(A.isValidPatientCount(patient, validAssign)).toBe(true);
-      expect(A.isValidPatientCount(patient, invalidAssign)).toBe(false);
+    describe('adds the patients to the patients array', () => {
+      expect(a.patients).toBe([p2, p1]);
     });
-  });
-});
 
-describe('isValidAcuity()', () => {
-  let patient = P.newPatient({ acuity: 3 });
-  let validAssign = A.newAssignment({ totalAcuity: 7 });
-  let invalidAssign = A.newAssignment({ totalAcuity: 8 });
+    describe('updates the total patients', () => {
+      expect(a.totalPatients).toBe(2);
+    });
 
-  test('The assignment is limited to the maximum allowed acuity.', () => {
-    expect(A.isValidAcuity(patient, validAssign)).toBe(true);
-    expect(A.isValidAcuity(patient, invalidAssign)).toBe(false);
+    describe('updates the total acuity', () => {
+      expect(a.totalAcuity).toBe(13);
+    });
+
+    describe('updates the highest status', () => {
+      expect(a.totalPatients).toBe(2);
+    });
   });
 });
