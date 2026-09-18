@@ -1,4 +1,4 @@
-import { Newtype } from "./newtype.js"
+import { Newtype } from "./types.js"
 import * as S from "./status.js"
 
 export type Acuity = Newtype<number, "Acuity">;

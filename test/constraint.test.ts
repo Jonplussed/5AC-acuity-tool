@@ -1,4 +1,5 @@
-import { describe, expect, test } from 'vitest'
+import { describe, expect, it } from 'vitest'
+
 import * as S from '../modules/status.ts'
 import * as P from '../modules/patient.ts'
 import * as A from '../modules/assignment.ts'
@@ -6,35 +7,47 @@ import * as C from '../modules/constraint.ts'
 
 describe('isValidPatientCount()', () => {
   describe('when the patient is IMC', () => {
-    let patient = P.create({ status: S.Status.IMC })
-    let validAssign = A.newAssignment({ totalPatients: 2 });
-    let invalidAssign = A.newAssignment({ totalPatients: 3 });
+    let p = P.create({ status: S.Status.IMC })
 
-    test('the assignment is limited to 3 patients.', () => {
-      expect(C.isValidPatientCount(patient, validAssign)).toBe(true);
-      expect(C.isValidPatientCount(patient, invalidAssign)).toBe(false);
+    let valid = A.empty();
+    valid.totalPatients = 2; // ideally this type of assignment is disallowed
+
+    let invalid = A.empty();
+    invalid.totalPatients = 3;
+
+    it('limits the assignment to 3 patients.', () => {
+      expect(C.isValidPatientCount(p, valid)).toBe(true);
+      expect(C.isValidPatientCount(p, invalid)).toBe(false);
     });
   });
 
   describe('when the patient is MS', () => {
-    let patient = P.create({ status: S.Status.MS})
-    let validAssign = A.newAssignment({ totalPatients: 3 });
-    let invalidAssign = A.newAssignment({ totalPatients: 4 });
+    let p = P.create({ status: S.Status.MS })
 
-    test('the assignment is limited to 3 patients.', () => {
-      expect(C.isValidPatientCount(patient, validAssign)).toBe(true);
-      expect(C.isValidPatientCount(patient, invalidAssign)).toBe(false);
+    let valid = A.empty();
+    valid.totalPatients = 3; // ideally this type of assignment is disallowed
+
+    let invalid = A.empty();
+    invalid.totalPatients = 4;
+
+    it('limits the assignment to 4 patients.', () => {
+      expect(C.isValidPatientCount(p, valid)).toBe(true);
+      expect(C.isValidPatientCount(p, invalid)).toBe(false);
     });
   });
 });
 
 describe('isValidAcuity()', () => {
-  let patient = P.create({ acuity: 3 });
-  let validAssign = A.newAssignment({ totalAcuity: 7 });
-  let invalidAssign = A.newAssignment({ totalAcuity: 8 });
+    let p = P.create({ acuity: 3 })
 
-  test('The assignment is limited to the maximum allowed acuity.', () => {
-    expect(C.isValidAcuity(patient, validAssign)).toBe(true);
-    expect(C.isValidAcuity(patient, invalidAssign)).toBe(false);
+    let valid = A.empty();
+    valid.totalAcuity = 7; // ideally this type of assignment is disallowed
+
+    let invalid = A.empty();
+    invalid.totalAcuity = 8;
+
+  it('The assignment is limited to the maximum allowed acuity.', () => {
+    expect(C.isValidAcuity(p, valid)).toBe(true);
+    expect(C.isValidAcuity(p, invalid)).toBe(false);
   });
 });

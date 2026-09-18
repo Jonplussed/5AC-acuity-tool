@@ -1,4 +1,4 @@
-import { Newtype } from "./newtype.js"
+import { Newtype } from "./types.js"
 import * as S from "./status.js"
 import * as P from "./patient.js"
 import * as A from "./assignment.js"

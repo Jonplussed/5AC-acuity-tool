@@ -13,9 +13,9 @@
     "main.ts",
     "modules/assignment.ts",
     "modules/constraint.ts",
-    "modules/newtype.ts",
     "modules/patient.ts",
     "modules/roster.ts",
-    "modules/status.ts"
+    "modules/status.ts",
+    "modules/types.ts"
   ]
 }

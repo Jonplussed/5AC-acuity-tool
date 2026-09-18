@@ -1,9 +1,10 @@
-import { describe, expect, test } from 'vitest'
+import { describe, expect, it } from 'vitest'
+
 import * as S from '../modules/status.ts'
 import * as P from '../modules/patient.ts'
 
-describe('sortByAcuityDesc', () => {
-  test('Sort patients from highest to lowest acuity.', () => {
+describe('sortByAcuityDesc()', () => {
+  it('sorts patients from highest to lowest acuity.', () => {
     let p1 = P.create({ acuity: 1 });
     let p2 = P.create({ acuity: 2 });
     let p3 = P.create({ acuity: 3 });
