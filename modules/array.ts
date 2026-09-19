@@ -1,4 +1,8 @@
-export const scooch = (arr: any[], from: number, to: number): T[] => {
+// TODO: Handle out-of-bound indexes.
+export const scooch = <T>(arr: T[], from: number, to: number): T[] => {
+  if (from >= arr.length) { throw new Error(`"from" (${from}) is beyond array range`); }
+  if (to >= arr.length) { throw new Error(`"to" (${to}) is beyond array range`); }
+
   let ele = arr[from];
 
   if (to > from) {
