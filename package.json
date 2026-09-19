@@ -14,11 +14,12 @@
   },
   "files": [
     "main.ts",
+    "modules/array.ts",
     "modules/assignment.ts",
     "modules/constraint.ts",
     "modules/patient.ts",
     "modules/roster.ts",
     "modules/status.ts",
-    "modules/newtype.ts"
+    "modules/types.ts"
   ]
 }

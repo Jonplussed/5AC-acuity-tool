@@ -11,6 +11,7 @@
 
   "files": [
     "main.ts",
+    "modules/array.ts",
     "modules/assignment.ts",
     "modules/constraint.ts",
     "modules/patient.ts",
