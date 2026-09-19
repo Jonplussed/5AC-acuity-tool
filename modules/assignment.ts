@@ -12,7 +12,7 @@ export interface Assignment {
   // Use Readonly<T> and Writable<T> to prevent mutation.
   highestStatus: S.Status,
   totalPatients: PatientCount,
-  totalAcuity: number,
+  totalAcuity: P.Acuity,
 }
 
 export const empty = (): Readonly<Assignment> => {
@@ -30,7 +30,7 @@ export const insert = (a: T.Writable<Assignment>, p: P.Patient): Readonly<Assign
   a.patients.push(p);
   a.totalPatients ++;
   a.highestStatus = S.highest(p.status, a.highestStatus);
-  a.totalAcuity += p.acuity;
+  a.totalAcuity = P.asAcuity(a.totalAcuity + p.acuity);
   return a;
 }
 

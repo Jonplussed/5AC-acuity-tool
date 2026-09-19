@@ -14,7 +14,7 @@ describe('empty()', () => {
 
 
 describe('insert()', () => {
-  let a;
+  let a: A.Assignment;
   let p1 = P.create({ room: 1, acuity: 4, status: S.Status.MS });
   let p2 = P.create({ room: 2, acuity: 9, status: S.Status.IMC });
 

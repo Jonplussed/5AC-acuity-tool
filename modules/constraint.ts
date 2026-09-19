@@ -17,6 +17,11 @@ export const isValidAcuity = (p: P.Patient, a: A.Assignment): boolean => {
   return total <= MAX_ASSIGNMENT_ACUITY;
 }
 
+export const constraints = [
+  isValidPatientCount,
+  isValidAcuity,
+]
+
 const maxPatients = (s: S.Status): A.PatientCount => {
   switch (s) {
     case S.Status.MS: { return MAX_MS_PATIENT_COUNT; }

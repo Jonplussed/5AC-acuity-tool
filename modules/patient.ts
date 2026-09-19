@@ -31,10 +31,10 @@ export const create = ({
   }
 }
 
-export const sortByAcuityDesc = (p: Patient[]): Patient[] => {
-  return p.sort(compareAcuityDesc);
+export const sortByAcuityAsc = (p: Patient[]): Patient[] => {
+  return p.sort(compareAcuityAsc);
 }
 
-const compareAcuityDesc = (p1: Patient, p2: Patient): number => {
-  return p2.acuity - p1.acuity;
+const compareAcuityAsc = (p1: Patient, p2: Patient): number => {
+  return p1.acuity - p2.acuity;
 }
