@@ -1,36 +1,35 @@
 import * as T from "./types.js"
 import * as S from "./status.js"
 
-import { Patient }from "./patient.js"
+import { Patient } from "./patient.js"
 
-export interface Assignment {
-  patients: Patient[],
+export class Assignment {
+  private _patients: Patient[];
+  private _highestStatus: S.Status;
+  private _totalPatients: T.PatientCount;
+  private _totalAcuity: T.Acuity;
 
-  // Computed attributes for ease and efficiency.
-  // Use Readonly<T> and Writable<T> to prevent mutation.
-  highestStatus: S.Status,
-  totalPatients: T.PatientCount,
-  totalAcuity: T.Acuity,
-}
-
-export const empty = (): Readonly<Assignment> => {
-  return {
-    patients: [],
-    highestStatus: S.Status.MS,
-    totalPatients: T.asPatientCount(0),
-    totalAcuity: T.asAcuity(0),
-  };
-}
-
-// TODO: Can this be performant while avoiding mutable state?
-export const insert = (a: T.Writable<Assignment>, ...ps: Patient[]): Readonly<Assignment> => {
-  for (let p of ps) {
-    a.patients.push(p);
-    a.totalPatients ++;
-    a.highestStatus = S.highest(p.status, a.highestStatus);
-    a.totalAcuity = T.asAcuity(a.totalAcuity + p.acuity);
+  constructor() {
+    this._patients = [];
+    this._highestStatus = S.Status.MS;
+    this._totalPatients = T.asPatientCount(0);
+    this._totalAcuity = T.asAcuity(0);
   }
 
-  return a;
+  patients(): Patient[] { return this._patients; }
+  highestStatus(): S.Status { return this._highestStatus; }
+  totalPatients(): T.PatientCount { return this._totalPatients; }
+  totalAcuity(): T.Acuity { return this._totalAcuity; }
+
+  insert(...patients: Patient[]): Assignment {
+    for (let p of patients) {
+      this._patients.push(p);
+      this._totalPatients ++;
+      this._highestStatus = S.highest(p.status, this._highestStatus);
+      this._totalAcuity = T.asAcuity(this._totalAcuity + p.acuity);
+    }
+
+    return this;
+  }
 }
 

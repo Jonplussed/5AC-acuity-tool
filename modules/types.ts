@@ -4,16 +4,6 @@ type Newtype<T, Tag> = T & {
   readonly [NewtypeTag]: Tag;
 };
 
-// *If this works* then it should provide zero-overhead write-protection for
-// objects with internal properties. Testing this requires type-checking unit
-// tests, which feels insane.
-
-export type Writable<T> = {
-  -readonly [Attr in keyof T]: T[Attr];
-};
-
-// Newtypes over the many numbers and strings to prevent cross-contamination.
-
 export type Acuity = Newtype<number, "Acuity">;
 export const asAcuity = (x: number) => x as Acuity;
 

@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it } from 'vitest'
 
 import * as S from "../modules/status.ts"
 import { Patient } from "../modules/patient.ts"
-import * as A from "../modules/assignment.ts"
+import { Assignment } from "../modules/assignment.ts"
 import * as C from "../modules/constraint.ts"
 import * as R from "../modules/roster.ts"
 
@@ -12,7 +12,11 @@ describe('empty()', () => {
   it('is a new roster with the given number of assignments', () => {
     expect(r.assignmentCount).toBe(3);
     expect(r.assignments.length).toBe(3);
-    expect(r.assignments).toEqual([A.empty(), A.empty(), A.empty()]);
+    expect(r.assignments).toEqual([
+      new Assignment(),
+      new Assignment(),
+      new Assignment()
+    ]);
   });
 });
 
@@ -35,11 +39,11 @@ describe('fill()', () => {
       R.fill(r, ps);
 
       expect(r.assignments).toEqual([
-        A.empty(),
-        A.insert(A.empty(), p1),
-        A.insert(A.empty(), p2),
-        A.insert(A.empty(), p3),
-        A.insert(A.empty(), p4),
+        new Assignment(),
+        (new Assignment()).insert(p1),
+        (new Assignment()).insert(p2),
+        (new Assignment()).insert(p3),
+        (new Assignment()).insert(p4),
       ]);
     });
 
@@ -48,9 +52,9 @@ describe('fill()', () => {
       R.fill(r, ps);
 
       expect(r.assignments).toEqual([
-        A.insert(A.empty(), p3),
-        A.insert(A.empty(), p2, p1),
-        A.insert(A.empty(), p4),
+        (new Assignment()).insert(p3),
+        (new Assignment()).insert(p2, p1),
+        (new Assignment()).insert(p4),
       ]);
     });
   });
