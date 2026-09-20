@@ -1,8 +1,8 @@
 import { scooch } from "./array.js"
+import { Patient } from "./patient.js"
 
 import * as T from "./types.js"
 import * as S from "./status.js"
-import * as P from "./patient.js"
 import * as A from "./assignment.js"
 import * as C from "./constraint.js"
 
@@ -18,13 +18,13 @@ export const empty = (n: T.AssignmentCount): Roster => {
   };
 }
 
-export const fill = (roster: Roster, patientList: P.Patient[]): Roster => {
+export const fill = (roster: Roster, patientList: Patient[]): Roster => {
   let assign: A.Assignment
-  let patient: P.Patient;
+  let patient: Patient;
   let indexCurr: number;
   let indexNew: number;
 
-  P.sortByAcuityAsc(patientList);
+  Patient.sortByAcuityAsc(patientList);
 
   while (patientList.length > 0) {
     patient = patientList.pop();
@@ -38,7 +38,7 @@ export const fill = (roster: Roster, patientList: P.Patient[]): Roster => {
 }
 
 // Return the index of the assignment that should receive the patient.
-const findAssignIndex = (p: P.Patient, aa: A.Assignment[]): number => {
+const findAssignIndex = (p: Patient, aa: A.Assignment[]): number => {
   let i = aa.findIndex((a) => C.constraints.every((f) => f(p,a)));
 
   // TODO: Gracefully degrade constraints until a suitable assignment is found.

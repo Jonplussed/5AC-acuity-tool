@@ -1,12 +1,13 @@
 {
   "compilerOptions": {
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "noImplicitAny": true,
+    "noUncheckedIndexedAccess": true,
+    "preserveConstEnums": true,
     "strict": true,
     "strictNullChecks": false,
-    "noImplicitAny": true,
-    "preserveConstEnums": true,
-    "noEmit": true,
-    "noUncheckedIndexedAccess": true,
-    "allowImportingTsExtensions": true
+    "strictPropertyInitialization": false
   },
 
   "files": [

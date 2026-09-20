@@ -1,7 +1,7 @@
 import { assertType, beforeEach, describe, expect, it } from 'vitest'
 
 import * as S from '../modules/status.ts'
-import * as P from '../modules/patient.ts'
+import { Patient } from '../modules/patient.ts'
 import * as A from '../modules/assignment.ts'
 
 describe('empty()', () => {
@@ -12,8 +12,8 @@ describe('empty()', () => {
 
 describe('insert()', () => {
   let a: A.Assignment;
-  let p1 = P.create({ room: 1, acuity: 4, status: S.Status.MS });
-  let p2 = P.create({ room: 2, acuity: 9, status: S.Status.IMC });
+  let p1 = new Patient({ room: 1, acuity: 4, status: S.Status.MS });
+  let p2 = new Patient({ room: 2, acuity: 9, status: S.Status.IMC });
 
   beforeEach(() => {
     a = A.empty();

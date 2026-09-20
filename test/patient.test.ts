@@ -1,14 +1,15 @@
 import { describe, expect, it } from 'vitest'
 
+import { Patient } from '../modules/patient.ts'
+
 import * as S from '../modules/status.ts'
-import * as P from '../modules/patient.ts'
 
-describe('sortByAcuityAsc()', () => {
+describe('Patient.sortByAcuityAsc()', () => {
   it('sorts patients from highest to lowest acuity.', () => {
-    let p1 = P.create({ acuity: 1 });
-    let p2 = P.create({ acuity: 2 });
-    let p3 = P.create({ acuity: 3 });
+    let p1 = new Patient({ acuity: 1 });
+    let p2 = new Patient({ acuity: 2 });
+    let p3 = new Patient({ acuity: 3 });
 
-    expect(P.sortByAcuityAsc([p2, p1, p3])).toStrictEqual([p1, p2, p3]);
+    expect(Patient.sortByAcuityAsc([p2, p1, p3])).toStrictEqual([p1, p2, p3]);
   });
 });

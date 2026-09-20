@@ -1,9 +1,10 @@
 import * as T from "./types.js"
 import * as S from "./status.js"
-import * as P from "./patient.js"
+
+import { Patient }from "./patient.js"
 
 export interface Assignment {
-  patients: P.Patient[],
+  patients: Patient[],
 
   // Computed attributes for ease and efficiency.
   // Use Readonly<T> and Writable<T> to prevent mutation.
@@ -22,7 +23,7 @@ export const empty = (): Readonly<Assignment> => {
 }
 
 // TODO: Can this be performant while avoiding mutable state?
-export const insert = (a: T.Writable<Assignment>, ...ps: P.Patient[]): Readonly<Assignment> => {
+export const insert = (a: T.Writable<Assignment>, ...ps: Patient[]): Readonly<Assignment> => {
   for (let p of ps) {
     a.patients.push(p);
     a.totalPatients ++;
