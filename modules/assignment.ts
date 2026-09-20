@@ -26,11 +26,14 @@ export const empty = (): Readonly<Assignment> => {
 
 // Mutates the assignment in place. Would love to avoid mutable state in a
 // future iteration.
-export const insert = (a: T.Writable<Assignment>, p: P.Patient): Readonly<Assignment> => {
-  a.patients.push(p);
-  a.totalPatients ++;
-  a.highestStatus = S.highest(p.status, a.highestStatus);
-  a.totalAcuity = P.asAcuity(a.totalAcuity + p.acuity);
+export const insert = (a: T.Writable<Assignment>, ...ps: P.Patient): Readonly<Assignment> => {
+  for (let p of ps) {
+    a.patients.push(p);
+    a.totalPatients ++;
+    a.highestStatus = S.highest(p.status, a.highestStatus);
+    a.totalAcuity = P.asAcuity(a.totalAcuity + p.acuity);
+  }
+
   return a;
 }
 

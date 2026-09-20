@@ -51,7 +51,7 @@ const findAssignIndex = (p: P.Patient, aa: A.Assignment[]): number => {
 const findAcuityAscIndex = (acuity: P.Acuity, assigns: A.Assignment[]): number => {
   let i = assigns.findIndex((a) => a.totalAcuity > acuity);
   if (i < 0) { return assigns.length - 1; }
-  return i;
+  return i - 1; // Should be safe since "i" should never equal 0.
 }
 
 const fillInitial = (roster: Roster, patientList: P.Patient[]): P.Patient[] => {

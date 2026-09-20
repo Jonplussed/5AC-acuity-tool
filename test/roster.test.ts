@@ -42,5 +42,16 @@ describe('fill()', () => {
         A.insert(A.empty(), p4),
       ]);
     });
+
+    it('reorders the assignments as it fills', () => {
+      r = R.empty(3);
+      R.fill(r, ps);
+
+      expect(r.assignments).toEqual([
+        A.insert(A.empty(), p3),
+        A.insert(A.empty(), p2, p1),
+        A.insert(A.empty(), p4),
+      ]);
+    });
   });
 });
