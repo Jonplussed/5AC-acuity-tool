@@ -1,22 +1,19 @@
-import { Newtype } from "./types.js"
 import { scooch } from "./array.js"
 
+import * as T from "./types.js"
 import * as S from "./status.js"
 import * as P from "./patient.js"
 import * as A from "./assignment.js"
 import * as C from "./constraint.js"
 
-export type AssignmentCount = Newtype<number, "AssignmentCount">;
-export const asAssignmentCount = (x: number) => x as AssignmentCount;
-
 export interface Roster {
-  assignmentCount: AssignmentCount,
+  assignmentCount: T.AssignmentCount,
   assignments: A.Assignment[],
 }
 
-export const empty = (n: AssignmentCount): Roster => {
+export const empty = (n: T.AssignmentCount): Roster => {
   return {
-    assignmentCount: asAssignmentCount(n),
+    assignmentCount: n,
     assignments: Array.from({ length: n }, () => A.empty()),
   };
 }
@@ -55,7 +52,7 @@ const findAssignIndex = (p: P.Patient, aa: A.Assignment[]): number => {
 // Return the index of the first assignment with an acuity greater than the one
 // provided, i.e. where we should splice in the current assignment to maintain
 // order by acuity ascending.
-const findAcuityAscIndex = (acuity: P.Acuity, assigns: A.Assignment[]): number => {
+const findAcuityAscIndex = (acuity: T.Acuity, assigns: A.Assignment[]): number => {
   let i = assigns.findIndex((a) => a.totalAcuity > acuity);
   if (i < 0) { return assigns.length - 1; }
   return i - 1; // Should be safe since "i" should never equal 0.

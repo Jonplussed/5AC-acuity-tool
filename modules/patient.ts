@@ -1,27 +1,19 @@
-import { Newtype } from "./types.js"
+import * as T from "./types.js"
 import * as S from "./status.js"
 
-export type Acuity = Newtype<number, "Acuity">;
-export const asAcuity = (x: number) => x as Acuity;
-
-export type RoomNumber = Newtype<number, "RoomNumber">;
-export const asRoomNumber = (x: number) => x as RoomNumber;
-
-export type BedNumber = Newtype<number, "BedNumber">;
-export const asBedNumber = (x: number) => x as BedNumber;
-
 export interface Patient {
-  room: RoomNumber,
-  bed: BedNumber,
+  room: T.RoomNumber,
+  bed: T.BedNumber,
   status: S.Status,
-  acuity: Acuity,
+  acuity: T.Acuity,
 }
 
+// TODO: Probably not what we want to create patients from user data.
 export const create = ({
-  room = asRoomNumber(0),
-  bed = asBedNumber(0),
+  room = T.asRoomNumber(0),
+  bed = T.asBedNumber(0),
   status = S.Status.MS,
-  acuity = asAcuity(0)
+  acuity = T.asAcuity(0)
 }: Patient): Patient => {
   return {
     room: room,
