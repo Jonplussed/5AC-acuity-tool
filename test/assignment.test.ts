@@ -5,13 +5,10 @@ import * as P from '../modules/patient.ts'
 import * as A from '../modules/assignment.ts'
 
 describe('empty()', () => {
-  let a = A.empty();
-
   it('is a new, readonly assignment', () => {
-    assertType<A.Assignment>(a);
+    assertType<A.Assignment>(A.empty());
   });
 });
-
 
 describe('insert()', () => {
   let a: A.Assignment;

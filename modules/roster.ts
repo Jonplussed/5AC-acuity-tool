@@ -37,6 +37,7 @@ export const fill = (roster: Roster, patientList: P.Patient[]): Roster => {
 const findAssignIndex = (p: P.Patient, aa: A.Assignment[]): number => {
   let i = aa.findIndex((a) => C.constraints.every((f) => f(p,a)));
 
+  // TODO: Gracefully degrade constraints until a suitable assignment is found.
   if (i < 0) { throw new Error(
     `Unable to find suitable assignment for patient ${p.room}-${p.bed}.`
   ); }
@@ -73,6 +74,7 @@ const fillRemaining = (roster: Roster, patientList: P.Patient[]): P.Patient[]  =
     indexCurr = findAssignIndex(patient, roster.assignments);
     assign = A.insert(roster.assignments[indexCurr], patient);
     indexNew = findAcuityAscIndex(assign.totalAcuity, roster.assignments);
+    scooch(roster.assignments, indexCurr, indexNew);
   }
 
   return patientList;
