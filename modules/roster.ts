@@ -4,7 +4,8 @@ import { Assignment } from "./assignment.js"
 
 import * as T from "./types.js"
 import * as S from "./status.js"
-import * as C from "./constraint.js"
+
+import { Constraints } from "./constraint.js"
 
 export interface Roster {
   assignmentCount: T.AssignmentCount,
@@ -37,9 +38,11 @@ export const fill = (roster: Roster, patientList: Patient[]): Roster => {
   return roster;
 }
 
+const constraints = Constraints.defaults();
+
 // Return the index of the assignment that should receive the patient.
 const findAssignIndex = (p: Patient, aa: Assignment[]): number => {
-  let i = aa.findIndex((a) => C.constraints.every((f) => f(p,a)));
+  let i = aa.findIndex((a) => constraints.test(p,a));
 
   // TODO: Gracefully degrade constraints until a suitable assignment is found.
   if (i < 0) { throw new Error(

@@ -2,7 +2,7 @@ import { Status } from "./status.js"
 import * as T from "./types.js"
 
 export class Patient {
-  static sortByAcuityAsc = (p: Patient[]): Patient[] => {
+  static sortByAcuityAsc(p: Patient[]): Patient[] {
     return p.sort(compareAcuityAsc);
   }
 
