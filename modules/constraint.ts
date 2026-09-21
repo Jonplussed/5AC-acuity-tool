@@ -10,6 +10,7 @@ export class Constraints {
       .addMaxPatientsForIMC(3)
       .addMaxPatientsForMS(4)
       .addMaxTotalAcuity(10);
+      // .addDistinctRooms();
   }
 
   private list: ((p: Patient, a: Assignment) => boolean)[];
@@ -45,6 +46,14 @@ export class Constraints {
   addMaxTotalAcuity(n: number): Constraints {
     this.list.push((p,a) => {
       return (p.acuity + a.totalAcuity) <= n;
+    });
+
+    return this;
+  }
+
+  addDistinctRooms(): Constraints {
+    this.list.push((p1,a) => {
+      return !a.patients.some((p2) => p1.bed.isSameRoomAs(p2.bed));
     });
 
     return this;

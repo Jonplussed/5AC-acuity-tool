@@ -10,8 +10,14 @@ export class Roster {
   readonly assignments: Assignment[];
   readonly constraints: Constraints;
 
-  constructor(count: number, constraints = Constraints.defaults()) {
-    this.assignments = Array.from({ length: count }, () => new Assignment()),
+  constructor({
+    count,
+    constraints = Constraints.defaults(),
+  }: {
+    count: T.AssignmentCount,
+    constraints: Constraints,
+  }) {
+    this.assignments = Array.from({ length: count }, () => new Assignment());
     this.constraints = constraints;
   }
 
@@ -35,7 +41,7 @@ export class Roster {
 
     // TODO: Gracefully degrade constraints until a suitable assignment is found.
     if (i < 0) { throw new Error(
-      `Unable to find suitable assignment for patient ${p.room}-${p.bed}.`
+      `No possible assignment for patient ${p.bed.label()}.`
     ); }
 
     return i;
