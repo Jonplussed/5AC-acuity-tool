@@ -9,13 +9,13 @@ const MAX_IMC_PATIENT_COUNT = T.asPatientCount(3);
 const MAX_ASSIGNMENT_ACUITY = T.asAcuity(10);
 
 export const isValidPatientCount = (p: Patient, a: Assignment): boolean => {
-  let limit = maxPatients(S.highest(p.status, a.highestStatus()));
-  let total = a.totalPatients();
+  let limit = maxPatients(S.highest(p.status, a.highestStatus));
+  let total = a.totalPatients;
   return total < limit;
 }
 
 export const isValidAcuity = (p: Patient, a: Assignment): boolean => {
-  let total = p.acuity + a.totalAcuity();
+  let total = p.acuity + a.totalAcuity;
   return total <= MAX_ASSIGNMENT_ACUITY;
 }
 

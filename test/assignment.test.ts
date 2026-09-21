@@ -8,9 +8,9 @@ describe('new Assignment()', () => {
   let a = new Assignment();
 
   it('has no patients', () => {
-    expect(a.patients().length).toBe(0);
-    expect(a.totalPatients()).toBe(0);
-    expect(a.totalAcuity()).toBe(0);
+    expect(a.patients.length).toBe(0);
+    expect(a.totalPatients).toBe(0);
+    expect(a.totalAcuity).toBe(0);
   });
 });
 
@@ -29,19 +29,19 @@ describe('insert()', () => {
     });
 
     it('adds the patients to the patients array', () => {
-      expect(a.patients()).toEqual([p1]);
+      expect(a.patients).toEqual([p1]);
     });
 
     it('updates the total patients', () => {
-      expect(a.totalPatients()).toBe(1);
+      expect(a.totalPatients).toBe(1);
     });
 
     it('updates the total acuity', () => {
-      expect(a.totalAcuity()).toBe(4);
+      expect(a.totalAcuity).toBe(4);
     });
 
     it('updates the highest status', () => {
-      expect(a.highestStatus()).toBe(S.Status.MS);
+      expect(a.highestStatus).toBe(S.Status.MS);
     });
   });
 
@@ -52,19 +52,19 @@ describe('insert()', () => {
     });
 
     it('adds the patients to the patients array', () => {
-      expect(a.patients()).toEqual([p2, p1]);
+      expect(a.patients).toEqual([p2, p1]);
     });
 
     it('updates the total patients', () => {
-      expect(a.totalPatients()).toBe(2);
+      expect(a.totalPatients).toBe(2);
     });
 
     it('updates the total acuity', () => {
-      expect(a.totalAcuity()).toBe(13);
+      expect(a.totalAcuity).toBe(13);
     });
 
     it('updates the highest status', () => {
-      expect(a.highestStatus()).toBe(S.Status.IMC);
+      expect(a.highestStatus).toBe(S.Status.IMC);
     });
   });
 });

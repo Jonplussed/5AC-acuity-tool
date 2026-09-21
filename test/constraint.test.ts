@@ -10,10 +10,10 @@ describe('isValidPatientCount()', () => {
     let p = new Patient({ status: S.Status.IMC })
 
     let valid = new Assignment();
-    valid.totalPatients() = 2; // ideally this type of assignment is disallowed
+    valid.totalPatients = 2; // ideally this type of assignment is disallowed
 
     let invalid = new Assignment();
-    invalid.totalPatients() = 3;
+    invalid.totalPatients = 3;
 
     it('limits the assignment to 3 patients.', () => {
       expect(C.isValidPatientCount(p, valid)).toBe(true);
@@ -25,10 +25,10 @@ describe('isValidPatientCount()', () => {
     let p = new Patient({ status: S.Status.MS })
 
     let valid = new Assignment();
-    valid.totalPatients() = 3; // ideally this type of assignment is disallowed
+    valid.totalPatients = 3; // ideally this type of assignment is disallowed
 
     let invalid = new Assignment();
-    invalid.totalPatients() = 4;
+    invalid.totalPatients = 4;
 
     it('limits the assignment to 4 patients.', () => {
       expect(C.isValidPatientCount(p, valid)).toBe(true);
@@ -41,10 +41,10 @@ describe('isValidAcuity()', () => {
     let p = new Patient({ acuity: 3 })
 
     let valid = new Assignment();
-    valid.totalAcuity() = 7; // ideally this type of assignment is disallowed
+    valid.totalAcuity = 7; // ideally this type of assignment is disallowed
 
     let invalid = new Assignment();
-    invalid.totalAcuity() = 8;
+    invalid.totalAcuity = 8;
 
   it('The assignment is limited to the maximum allowed acuity.', () => {
     expect(C.isValidAcuity(p, valid)).toBe(true);

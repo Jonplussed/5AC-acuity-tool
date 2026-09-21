@@ -30,7 +30,7 @@ export const fill = (roster: Roster, patientList: Patient[]): Roster => {
     patient = patientList.pop();
     indexCurr = findAssignIndex(patient, roster.assignments);
     assign = roster.assignments[indexCurr].insert(patient);
-    indexNew = findAcuityAscIndex(assign.totalAcuity(), roster.assignments);
+    indexNew = findAcuityAscIndex(assign.totalAcuity, roster.assignments);
     scooch(roster.assignments, indexCurr, indexNew);
   }
 
@@ -53,7 +53,7 @@ const findAssignIndex = (p: Patient, aa: Assignment[]): number => {
 // provided, i.e. where we should splice in the current assignment to maintain
 // order by acuity ascending.
 const findAcuityAscIndex = (acuity: T.Acuity, assigns: Assignment[]): number => {
-  let i = assigns.findIndex((a) => a.totalAcuity() > acuity);
+  let i = assigns.findIndex((a) => a.totalAcuity > acuity);
   if (i < 0) { return assigns.length - 1; }
   return i - 1; // Should be safe since "i" should never equal 0.
 }

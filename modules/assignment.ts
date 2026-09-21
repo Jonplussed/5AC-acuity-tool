@@ -4,29 +4,35 @@ import * as S from "./status.js"
 import { Patient } from "./patient.js"
 
 export class Assignment {
-  private _patients: Patient[];
+  readonly patients: Patient[];
+
   private _highestStatus: S.Status;
   private _totalPatients: T.PatientCount;
   private _totalAcuity: T.Acuity;
 
   constructor() {
-    this._patients = [];
+    this.patients = [];
+
     this._highestStatus = S.Status.MS;
     this._totalPatients = T.asPatientCount(0);
     this._totalAcuity = T.asAcuity(0);
   }
 
-  patients(): Patient[] { return this._patients; }
-  highestStatus(): S.Status { return this._highestStatus; }
-  totalPatients(): T.PatientCount { return this._totalPatients; }
-  totalAcuity(): T.Acuity { return this._totalAcuity; }
+  private set highestStatus(x) { this._highestStatus = x; }
+  public get highestStatus() { return this._highestStatus; }
+
+  private set totalPatients(x) { this._totalPatients = x; }
+  public get totalPatients() { return this._totalPatients; }
+
+  private set totalAcuity(x) { this._totalAcuity = x; }
+  public get totalAcuity() { return this._totalAcuity; }
 
   insert(...patients: Patient[]): Assignment {
     for (let p of patients) {
-      this._patients.push(p);
-      this._totalPatients ++;
-      this._highestStatus = S.highest(p.status, this._highestStatus);
-      this._totalAcuity = T.asAcuity(this._totalAcuity + p.acuity);
+      this.patients.push(p);
+      this.totalPatients ++;
+      this.highestStatus = S.highest(p.status, this._highestStatus);
+      this.totalAcuity = T.asAcuity(this.totalAcuity + p.acuity);
     }
 
     return this;
