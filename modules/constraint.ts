@@ -9,10 +9,14 @@ export class Constraints {
     return (new Constraints())
       .addMaxPatientsForIMC(3)
       .addMaxPatientsForMS(4)
-      .addMaxAcuity(10);
+      .addMaxTotalAcuity(10);
   }
 
   private list: ((p: Patient, a: Assignment) => boolean)[];
+
+  constructor() {
+    this.list = [];
+  }
 
   addMaxPatientsForIMC(n: number): Constraints {
     this.list.push((p,a) => {
@@ -38,7 +42,7 @@ export class Constraints {
     return this;
   }
 
-  addMaxAcuity(n: number): Constraints {
+  addMaxTotalAcuity(n: number): Constraints {
     this.list.push((p,a) => {
       return (p.acuity + a.totalAcuity) <= n;
     });
