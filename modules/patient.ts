@@ -1,5 +1,5 @@
+import { Status } from "./status.js"
 import * as T from "./types.js"
-import * as S from "./status.js"
 
 export class Patient {
   static sortByAcuityAsc = (p: Patient[]): Patient[] => {
@@ -8,13 +8,13 @@ export class Patient {
 
   room: T.RoomNumber;
   bed: T.BedNumber;
-  status: S.Status;
+  status: Status;
   acuity: T.Acuity;
 
   constructor({
     room = T.asRoomNumber(0),
     bed = T.asBedNumber(0),
-    status = S.Status.MS,
+    status = Status.MS,
     acuity = T.asAcuity(0),
   }) {
     this.room = room;

@@ -1,6 +1,6 @@
 import { assertType, beforeEach, describe, expect, it } from 'vitest'
 
-import * as S from '../modules/status.ts'
+import { Status } from '../modules/status.ts'
 import { Patient } from '../modules/patient.ts'
 import { Assignment } from '../modules/assignment.ts'
 
@@ -16,8 +16,8 @@ describe('new Assignment()', () => {
 
 describe('insert()', () => {
   let a: Assignment;
-  let p1 = new Patient({ room: 1, acuity: 4, status: S.Status.MS });
-  let p2 = new Patient({ room: 2, acuity: 9, status: S.Status.IMC });
+  let p1 = new Patient({ room: 1, acuity: 4, status: Status.MS });
+  let p2 = new Patient({ room: 2, acuity: 9, status: Status.IMC });
 
   beforeEach(() => {
     a = new Assignment();
@@ -41,7 +41,7 @@ describe('insert()', () => {
     });
 
     it('updates the highest status', () => {
-      expect(a.highestStatus).toBe(S.Status.MS);
+      expect(a.highestStatus).toBe(Status.MS);
     });
   });
 
@@ -64,7 +64,7 @@ describe('insert()', () => {
     });
 
     it('updates the highest status', () => {
-      expect(a.highestStatus).toBe(S.Status.IMC);
+      expect(a.highestStatus).toBe(Status.IMC);
     });
   });
 });

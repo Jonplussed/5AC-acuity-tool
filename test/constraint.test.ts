@@ -1,13 +1,13 @@
 import { describe, expect, it } from 'vitest'
 
-import * as S from '../modules/status.ts'
+import { Status } from '../modules/status.ts'
 import { Patient } from '../modules/patient.ts'
 import { Assignment } from '../modules/assignment.ts'
 import * as C from '../modules/constraint.ts'
 
 describe('isValidPatientCount()', () => {
   describe('when the patient is IMC', () => {
-    let p = new Patient({ status: S.Status.IMC })
+    let p = new Patient({ status: Status.IMC })
 
     let valid = new Assignment();
     valid.totalPatients = 2; // ideally this type of assignment is disallowed
@@ -22,7 +22,7 @@ describe('isValidPatientCount()', () => {
   });
 
   describe('when the patient is MS', () => {
-    let p = new Patient({ status: S.Status.MS })
+    let p = new Patient({ status: Status.MS })
 
     let valid = new Assignment();
     valid.totalPatients = 3; // ideally this type of assignment is disallowed

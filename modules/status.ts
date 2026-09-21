@@ -1,31 +1,29 @@
-const STATUS_MS_STR = "MS";
-const STATUS_IMC_STR = "IMC";
+export class Status {
+  static fromString(s: string): Status {
+    switch (s.toUpperCase()) {
+      case this.MS.label:  return this.MS;
+      case this.IMC.label: return this.IMC;
+    }
 
-export enum Status {
-  MS,
-  IMC,
-}
-
-export const highest = (s1: Status, s2: Status): Status => {
-  if (s1 >= s2) {
-    return s1;
-  } else {
-    return s2;
-  }
-}
-
-export const fromString = (s: string): Status => {
-  switch (s.toUpperCase()) {
-    case STATUS_MS_STR: return Status.MS;
-    case STATUS_IMC_STR: return Status.IMC;
+    throw new Error(`Cannot convert "${s}" into patient status.`);
   }
 
-  throw new Error(`Cannot convert "${s}" into patient status.`);
-}
+  static highest(s1: Status, s2: Status): Status {
+    if (s1.value >= s2.value) {
+      return s1;
+    } else {
+      return s2;
+    }
+  }
 
-export const toString = (s: Status): string => {
-  switch (s) {
-    case Status.MS: return STATUS_MS_STR;
-    case Status.IMC: return STATUS_IMC_STR;
+  static MS:  Status = new Status(0, "MS");
+  static IMC: Status = new Status(1, "IMC");
+
+  readonly value: number;
+  readonly label: string;
+
+  constructor(value: number, label: string) {
+    this.value = value;
+    this.label = label.toUpperCase();
   }
 }

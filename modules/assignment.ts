@@ -1,19 +1,21 @@
 import * as T from "./types.js"
-import * as S from "./status.js"
 
+import { Status } from "./status.js"
 import { Patient } from "./patient.js"
 
 export class Assignment {
   readonly patients: Patient[];
 
-  private _highestStatus: S.Status;
+  // Internal properties. These could be computed on-the-fly but are tracked
+  // for efficiency.
+  private _highestStatus: Status;
   private _totalPatients: T.PatientCount;
   private _totalAcuity: T.Acuity;
 
   constructor() {
     this.patients = [];
 
-    this._highestStatus = S.Status.MS;
+    this._highestStatus = Status.MS;
     this._totalPatients = T.asPatientCount(0);
     this._totalAcuity = T.asAcuity(0);
   }
@@ -31,7 +33,7 @@ export class Assignment {
     for (let p of patients) {
       this.patients.push(p);
       this.totalPatients ++;
-      this.highestStatus = S.highest(p.status, this._highestStatus);
+      this.highestStatus = Status.highest(p.status, this._highestStatus);
       this.totalAcuity = T.asAcuity(this.totalAcuity + p.acuity);
     }
 

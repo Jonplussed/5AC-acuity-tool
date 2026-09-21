@@ -1,6 +1,6 @@
 import * as T from "./types.js"
-import * as S from "./status.js"
 
+import { Status } from "./status.js"
 import { Patient } from "./patient.js"
 import { Assignment } from "./assignment.js"
 
@@ -9,7 +9,7 @@ const MAX_IMC_PATIENT_COUNT = T.asPatientCount(3);
 const MAX_ASSIGNMENT_ACUITY = T.asAcuity(10);
 
 export const isValidPatientCount = (p: Patient, a: Assignment): boolean => {
-  let limit = maxPatients(S.highest(p.status, a.highestStatus));
+  let limit = maxPatients(Status.highest(p.status, a.highestStatus));
   let total = a.totalPatients;
   return total < limit;
 }
@@ -24,9 +24,9 @@ export const constraints = [
   isValidAcuity,
 ]
 
-const maxPatients = (s: S.Status): T.PatientCount => {
+const maxPatients = (s: Status): T.PatientCount => {
   switch (s) {
-    case S.Status.MS: { return MAX_MS_PATIENT_COUNT; }
-    case S.Status.IMC: { return MAX_IMC_PATIENT_COUNT; }
+    case Status.MS: { return MAX_MS_PATIENT_COUNT; }
+    case Status.IMC: { return MAX_IMC_PATIENT_COUNT; }
   }
 }

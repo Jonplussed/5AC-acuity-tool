@@ -1,34 +1,34 @@
 import { describe, expect, it } from 'vitest'
 
-import * as S from '../modules/status.ts'
+import { Status } from '../modules/status.ts'
 
-let imc = S.Status.IMC;
-let ms = S.Status.MS;
+let imc = Status.IMC;
+let ms = Status.MS;
 
 describe('highest()', () => {
   it('Returns the highest of the given statuses.', () => {
-    expect(S.highest(imc, ms)).toBe(imc);
-    expect(S.highest(ms, imc)).toBe(imc);
-    expect(S.highest(ms, ms)).toBe(ms);
+    expect(Status.highest(imc, ms)).toBe(imc);
+    expect(Status.highest(ms, imc)).toBe(imc);
+    expect(Status.highest(ms, ms)).toBe(ms);
   });
 });
 
 describe('fromString()', () => {
   it('makes a status from uppercase string.', () => {
-    expect(S.fromString('MS')).toBe(ms);
+    expect(Status.fromString('MS')).toBe(ms);
   });
 
   it('makes a status from lowercase string.', () => {
-    expect(S.fromString('ms')).toBe(ms);
+    expect(Status.fromString('ms')).toBe(ms);
   });
 
   it('throws an error with invalid status string.', () => {
-    expect(() => S.fromString('')).toThrow();
+    expect(() => Status.fromString('')).toThrow();
   });
 });
 
-describe('toString()', () => {
+describe('label', () => {
   it('makes a string from the status.', () => {
-    expect(S.toString(ms)).toBe('MS');
+    expect(ms.label).toBe('MS');
   });
 });
