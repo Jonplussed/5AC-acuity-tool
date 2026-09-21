@@ -2,8 +2,8 @@ import { Status } from "./status.js"
 import * as T from "./types.js"
 
 export class Patient {
-  static sortByAcuityAsc(p: Patient[]): Patient[] {
-    return p.sort(compareAcuityAsc);
+  static sortByAcuityDesc(p: Patient[]): Patient[] {
+    return p.sort((p1,p2) => p2.acuity - p1.acuity);
   }
 
   room: T.RoomNumber;
@@ -22,8 +22,4 @@ export class Patient {
     this.status = status;
     this.acuity = acuity;
   }
-}
-
-const compareAcuityAsc = (p1: Patient, p2: Patient): number => {
-  return p1.acuity - p2.acuity;
 }

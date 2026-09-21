@@ -1,62 +1,50 @@
+import * as T from "./types.js"
+
 import { scooch } from "./array.js"
 import { Patient } from "./patient.js"
 import { Assignment } from "./assignment.js"
-
-import * as T from "./types.js"
-import * as S from "./status.js"
-
 import { Constraints } from "./constraint.js"
 
-export interface Roster {
-  assignmentCount: T.AssignmentCount,
-  assignments: Assignment[],
-}
+export class Roster {
 
-export const empty = (n: T.AssignmentCount): Roster => {
-  return {
-    assignmentCount: n,
-    assignments: Array.from({ length: n }, () => new Assignment()),
-  };
-}
+  readonly assignments: Assignment[];
+  readonly constraints: Constraints;
 
-export const fill = (roster: Roster, patientList: Patient[]): Roster => {
-  let assign: Assignment
-  let patient: Patient;
-  let indexCurr: number;
-  let indexNew: number;
-
-  Patient.sortByAcuityAsc(patientList);
-
-  while (patientList.length > 0) {
-    patient = patientList.pop();
-    indexCurr = findAssignIndex(patient, roster.assignments);
-    assign = roster.assignments[indexCurr].insert(patient);
-    indexNew = findAcuityAscIndex(assign.totalAcuity, roster.assignments);
-    scooch(roster.assignments, indexCurr, indexNew);
+  constructor(count: number, constraints = Constraints.defaults()) {
+    this.assignments = Array.from({ length: count }, () => new Assignment()),
+    this.constraints = constraints;
   }
 
-  return roster;
-}
+  fill(ps: Patient[]): Roster {
+    let a: Assignment
+    let i: number;
+    let j: number;
 
-const constraints = Constraints.defaults();
+    for (let p of Patient.sortByAcuityDesc(ps)) {
+      i = this.findAssignmentIndex(p);
+      a = this.assignments[i].insert(p);
+      j = this.findHigherAcuityIndex(a.totalAcuity);
+      scooch(this.assignments, i, j);
+    }
 
-// Return the index of the assignment that should receive the patient.
-const findAssignIndex = (p: Patient, aa: Assignment[]): number => {
-  let i = aa.findIndex((a) => constraints.test(p,a));
+    return this;
+  }
 
-  // TODO: Gracefully degrade constraints until a suitable assignment is found.
-  if (i < 0) { throw new Error(
-    `Unable to find suitable assignment for patient ${p.room}-${p.bed}.`
-  ); }
+  private findAssignmentIndex = (p: Patient): number => {
+    let i = this.assignments.findIndex((a) => this.constraints.test(p,a));
 
-  return i;
-}
+    // TODO: Gracefully degrade constraints until a suitable assignment is found.
+    if (i < 0) { throw new Error(
+      `Unable to find suitable assignment for patient ${p.room}-${p.bed}.`
+    ); }
 
-// Return the index of the first assignment with an acuity greater than the one
-// provided, i.e. where we should splice in the current assignment to maintain
-// order by acuity ascending.
-const findAcuityAscIndex = (acuity: T.Acuity, assigns: Assignment[]): number => {
-  let i = assigns.findIndex((a) => a.totalAcuity > acuity);
-  if (i < 0) { return assigns.length - 1; }
-  return i - 1; // Should be safe since "i" should never equal 0.
+    return i;
+  }
+
+  private findHigherAcuityIndex = (acuity: T.Acuity): number => {
+    let i = this.assignments.findIndex((a) => a.totalAcuity > acuity);
+    if (i < 0) { return this.assignments.length - 1; }
+    return i - 1; // Should be safe since "i" should never equal 0.
+  }
+
 }

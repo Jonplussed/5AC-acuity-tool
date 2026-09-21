@@ -1,16 +1,13 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 
-import * as S from "../modules/status.ts"
 import { Patient } from "../modules/patient.ts"
 import { Assignment } from "../modules/assignment.ts"
-import * as C from "../modules/constraint.ts"
-import * as R from "../modules/roster.ts"
+import { Roster } from "../modules/roster.ts"
 
-describe('empty()', () => {
-  let r = R.empty(3);
+describe('new Roster()', () => {
+  let r = new Roster(3);
 
   it('is a new roster with the given number of assignments', () => {
-    expect(r.assignmentCount).toBe(3);
     expect(r.assignments.length).toBe(3);
     expect(r.assignments).toEqual([
       new Assignment(),
@@ -27,16 +24,15 @@ describe('fill()', () => {
     let p3 = new Patient({ room: 2, bed: 1, acuity: 3 });
     let p4 = new Patient({ room: 2, bed: 2, acuity: 4 });
 
-    let ps: P.Patient;
-    let r: R.Roster;
+    let ps: Patient;
+    let r: Roster;
 
     beforeEach(() => {
       ps = [p1,p3,p2,p4];
     });
 
     it('initially fills the roster from lowest to highest acuity', () => {
-      r = R.empty(5);
-      R.fill(r, ps);
+      r = new Roster(5).fill(ps);
 
       expect(r.assignments).toEqual([
         new Assignment(),
@@ -48,8 +44,7 @@ describe('fill()', () => {
     });
 
     it('reorders the assignments as it fills', () => {
-      r = R.empty(3);
-      R.fill(r, ps);
+      r = new Roster(3).fill(ps);
 
       expect(r.assignments).toEqual([
         (new Assignment()).insert(p3),
