@@ -27,8 +27,12 @@ export class Bed {
     }
   }
 
+  isSameBedAs(b: Bed): boolean {
+    return this.roomNumber == b.roomNumber && this.bedNumber == b.bedNumber;
+  }
+
   isSameRoomAs(b: Bed): boolean {
-    return this.bedNumber == b.bedNumber;
+    return this.roomNumber == b.roomNumber;
   }
 
 }
