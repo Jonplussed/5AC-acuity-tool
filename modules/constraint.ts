@@ -1,5 +1,7 @@
 import * as T from "./types.js"
+import * as A from "./array.js"
 
+import { Bed } from "./bed.js"
 import { Status } from "./status.js"
 import { Patient } from "./patient.js"
 import { Assignment } from "./assignment.js"
@@ -52,8 +54,22 @@ export class Constraints {
   }
 
   addDistinctRooms(): Constraints {
-    this.list.push((p1,a) => {
-      return !a.patients.some((p2) => p1.bed.isSameRoomAs(p2.bed));
+    this.list.push((p,a) => {
+      return !a.patients.some((q) => p.bed.isSameRoomAs(q.bed));
+    });
+
+    return this;
+  }
+
+  addExclusive(...beds: Bed[]): Constraints {
+    this.list.push((p,a) => {
+      if (beds.some((b) => p.bed == b)) {
+        for (let q of a.patients) {
+          if (beds.some((b) => q.bed == b)) { return false; }
+        }
+      }
+
+      return true;
     });
 
     return this;
