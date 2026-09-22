@@ -63,9 +63,11 @@ export class Constraints {
 
   addExclusive(...beds: Bed[]): Constraints {
     this.list.push((p,a) => {
-      if (beds.some((b) => p.bed == b)) {
+      if (beds.some((b) => p.bed.isSameBedAs(b))) {
         for (let q of a.patients) {
-          if (beds.some((b) => q.bed == b)) { return false; }
+          if (beds.some((b) => q.bed.isSameBedAs(b))) {
+            return false;
+          }
         }
       }
 

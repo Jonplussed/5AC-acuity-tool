@@ -12,11 +12,11 @@ export class Bed {
   }
 
   readonly roomNumber: T.RoomNumber;
-  readonly bedNumber: T.BedNumber;
+  readonly bedNumber?: T.BedNumber;
 
   constructor(r: T.RoomNumber, b: T.BedNumber) {
     this.roomNumber = r;
-    this.bedNumber = b;
+    if (b) { this.bedNumber = b; }
   }
 
   label(): string {
