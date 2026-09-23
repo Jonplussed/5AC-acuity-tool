@@ -29,7 +29,7 @@ export class Assignment {
   private set totalAcuity(x) { this._totalAcuity = x; }
   public get totalAcuity() { return this._totalAcuity; }
 
-  insert(...patients: Patient[]): Assignment {
+  addPatient(...patients: Patient[]): Assignment {
     for (let p of patients) {
       this.patients.push(p);
       this.totalPatients ++;

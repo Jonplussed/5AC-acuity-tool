@@ -29,7 +29,7 @@ export class Roster {
 
     for (let p of Patient.sortByAcuityDesc(ps)) {
       i = this.findAssignmentIndex(p);
-      a = this.assignments[i].insert(p);
+      a = this.assignments[i].addPatient(p);
       j = this.findHigherAcuityIndex(a.totalAcuity);
       scooch(this.assignments, i, j);
     }

@@ -38,10 +38,10 @@ describe('fill()', () => {
 
       expect(r.assignments).toEqual([
         new Assignment(),
-        (new Assignment()).insert(p1),
-        (new Assignment()).insert(p2),
-        (new Assignment()).insert(p3),
-        (new Assignment()).insert(p4),
+        new Assignment().addPatient(p1),
+        new Assignment().addPatient(p2),
+        new Assignment().addPatient(p3),
+        new Assignment().addPatient(p4),
       ]);
     });
 
@@ -49,9 +49,9 @@ describe('fill()', () => {
       r = new Roster({ count: 3 }).fill(ps);
 
       expect(r.assignments).toEqual([
-        (new Assignment()).insert(p3),
-        (new Assignment()).insert(p2, p1),
-        (new Assignment()).insert(p4),
+        new Assignment().addPatient(p3),
+        new Assignment().addPatient(p2, p1),
+        new Assignment().addPatient(p4),
       ]);
     });
   });

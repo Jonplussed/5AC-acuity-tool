@@ -4,7 +4,7 @@
 
 - [x] Populate assignments prioritizing minimum acuity variance.
 - [x] Allow arbitrary constraints.
-- [ ] Test all arbitrary constraints.
+- [x] Test all arbitrary constraints.
 - [ ] Test roster population with each constraint individually.
 - [x] Test Bed class.
 - [ ] Parse patient list from Excel file.

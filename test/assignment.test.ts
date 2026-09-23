@@ -14,7 +14,7 @@ describe('new Assignment()', () => {
   });
 });
 
-describe('insert()', () => {
+describe('addPatient()', () => {
   let a: Assignment;
   let p1 = new Patient({ room: 1, acuity: 4, status: Status.MS });
   let p2 = new Patient({ room: 2, acuity: 9, status: Status.IMC });
@@ -25,7 +25,7 @@ describe('insert()', () => {
 
   describe('with one patient', () => {
     beforeEach(() => {
-      a.insert(p1);
+      a.addPatient(p1);
     });
 
     it('adds the patients to the patients array', () => {
@@ -47,8 +47,8 @@ describe('insert()', () => {
 
   describe('with two patients', () => {
     beforeEach(() => {
-      a.insert(p2);
-      a.insert(p1);
+      a.addPatient(p2);
+      a.addPatient(p1);
     });
 
     it('adds the patients to the patients array', () => {
