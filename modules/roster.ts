@@ -3,19 +3,20 @@ import * as T from "./types.js"
 import { scooch } from "./array.js"
 import { Patient } from "./patient.js"
 import { Assignment } from "./assignment.js"
-import { Constraints } from "./constraint.js"
+import { Constraint } from "./constraint.js"
+import { ConstraintsList } from "./constraints_list.js"
 
 export class Roster {
 
   readonly assignments: Assignment[];
-  readonly constraints: Constraints;
+  readonly constraints: ConstraintsList;
 
   constructor({
     count,
-    constraints = Constraints.defaults(),
+    constraints = ConstraintsList.defaults(),
   }: {
     count: T.AssignmentCount,
-    constraints: Constraints,
+    constraints: ConstraintsList,
   }) {
     this.assignments = Array.from({ length: count }, () => new Assignment());
     this.constraints = constraints;

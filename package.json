@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "main": "main.ts",
   "dependencies": {
+    "react-hook-form": "^7.88.0",
     "typescript": "^7.0.2",
     "vitest": "^5.0.0"
   },
@@ -18,6 +19,7 @@
     "modules/bed.ts",
     "modules/assignment.ts",
     "modules/constraint.ts",
+    "modules/constraints_list.ts",
     "modules/patient.ts",
     "modules/roster.ts",
     "modules/status.ts",

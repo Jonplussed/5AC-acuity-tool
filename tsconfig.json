@@ -16,6 +16,7 @@
     "modules/bed.ts",
     "modules/assignment.ts",
     "modules/constraint.ts",
+    "modules/constraints_list.ts",
     "modules/patient.ts",
     "modules/roster.ts",
     "modules/status.ts",

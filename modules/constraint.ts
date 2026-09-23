@@ -1,68 +1,48 @@
 import * as T from "./types.js"
-import * as A from "./array.js"
 
 import { Bed } from "./bed.js"
 import { Status } from "./status.js"
 import { Patient } from "./patient.js"
 import { Assignment } from "./assignment.js"
 
-export class Constraints {
-  static defaults(): Constraints {
-    return (new Constraints())
-      .addMaxPatientsForIMC(3)
-      .addMaxPatientsForMS(4)
-      .addMaxTotalAcuity(10);
-      // .addDistinctRooms();
-  }
+type Condition = (p: Patient, a: Assignment) => boolean;
 
-  private list: ((p: Patient, a: Assignment) => boolean)[];
+export class Constraint {
 
-  constructor() {
-    this.list = [];
-  }
-
-  addMaxPatientsForIMC(n: number): Constraints {
-    this.list.push((p,a) => {
+  static maxPatientsForIMC(n: T.PatientCount): Constraint {
+    return new Constraint("MAX_PATIENTS_FOR_IMC", (p: Patient, a: Assignment) => {
       if (Status.highest(p.status, a.highestStatus) == Status.IMC) {
         return a.totalPatients < n;
       } else {
         return true;
       }
     });
-
-    return this;
   }
 
-  addMaxPatientsForMS(n: number): Constraints {
-    this.list.push((p,a) => {
+  static maxPatientsForMS(n: T.PatientCount): Constraint {
+    return new Constraint("MAX_PATIENTS_FOR_MS", (p: Patient, a: Assignment) => {
       if (Status.highest(p.status, a.highestStatus) == Status.MS) {
         return a.totalPatients < n;
       } else {
         return true;
       }
     });
-
-    return this;
   }
 
-  addMaxTotalAcuity(n: number): Constraints {
-    this.list.push((p,a) => {
+  static maxTotalAcuity(n: T.Acuity): Constraint {
+    return new Constraint("MAX_TOTAL_ACUITY", (p: Patient, a: Assignment) => {
       return (p.acuity + a.totalAcuity) <= n;
     });
-
-    return this;
   }
 
-  addDistinctRooms(): Constraints {
-    this.list.push((p,a) => {
+  static distinctRooms(): Constraint {
+    return new Constraint("DISTINCT_ROOMS", (p: Patient, a: Assignment) => {
       return !a.patients.some((q) => p.bed.isSameRoomAs(q.bed));
     });
-
-    return this;
   }
 
-  addExclusive(...beds: Bed[]): Constraints {
-    this.list.push((p,a) => {
+  static exclusiveBeds(...beds: Bed[]): Constraint {
+    return new Constraint("EXCLUSIVE_BEDS", (p: Patient, a: Assignment) => {
       if (beds.some((b) => p.bed.isSameBedAs(b))) {
         for (let q of a.patients) {
           if (beds.some((b) => q.bed.isSameBedAs(b))) {
@@ -73,12 +53,19 @@ export class Constraints {
 
       return true;
     });
+  }
 
-    return this;
+  readonly label: string;
+  readonly condition: Condition;
+
+  constructor(label: string, condition: Condition) {
+    this.label = label;
+    this.condition = condition;
   }
 
   test(p: Patient, a: Assignment): boolean {
-    return this.list.every((f) => f(p,a));
+    return this.condition(p,a);
   }
+
 }
 
