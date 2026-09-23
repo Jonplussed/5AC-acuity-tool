@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 
 import { Status } from "../modules/status.ts"
+import { Bed } from "../modules/bed.ts"
 import { Patient } from "../modules/patient.ts"
 import { Assignment } from "../modules/assignment.ts"
 import { Roster } from "../modules/roster.ts"
@@ -20,10 +21,10 @@ describe('new Roster()', () => {
 
 describe('fill()', () => {
   describe('with all med-surg patients', () => {
-    let p1 = new Patient({ acuity: 1, status: Status.MS });
-    let p2 = new Patient({ acuity: 2, status: Status.MS });
-    let p3 = new Patient({ acuity: 3, status: Status.MS });
-    let p4 = new Patient({ acuity: 4, status: Status.MS });
+    let p1 = new Patient({ acuity: 1, status: Status.MS, bed: new Bed(1,1) });
+    let p2 = new Patient({ acuity: 2, status: Status.MS, bed: new Bed(2,1) });
+    let p3 = new Patient({ acuity: 3, status: Status.MS, bed: new Bed(3,1) });
+    let p4 = new Patient({ acuity: 4, status: Status.MS, bed: new Bed(4,1) });
 
     let ps: Patient;
     let r: Roster;

@@ -3,23 +3,23 @@ import { describe, expect, it } from 'vitest'
 import { Status } from '../modules/status.ts'
 import { Patient } from '../modules/patient.ts'
 import { Assignment } from '../modules/assignment.ts'
-import { Constraints } from '../modules/constraint.ts'
+import { Constraint } from '../modules/constraint.ts'
 
-describe('addMaxPatientsForIMC()', () => {
-  let constraints = (new Constraints()).addMaxPatientsForIMC(3);
+describe('Constraint.maxPatientsForIMC()', () => {
+  let constraint = Constraint.maxPatientsForIMC(3);
 
   describe('when the patient is IMC', () => {
     let patient = new Patient({ status: Status.IMC })
 
     let valid = new Assignment();
-    valid.totalPatients = 2; // ideally this type of assignment is disallowed
+    valid.totalPatients = 2;
 
     let invalid = new Assignment();
     invalid.totalPatients = 3;
 
     it('limits the assignment to "n" patients.', () => {
-      expect(constraints.test(patient, valid)).toBe(true);
-      expect(constraints.test(patient, invalid)).toBe(false);
+      expect(constraint.test(patient, valid)).toBe(true);
+      expect(constraint.test(patient, invalid)).toBe(false);
     });
   });
 
@@ -29,13 +29,13 @@ describe('addMaxPatientsForIMC()', () => {
     valid.totalPatients = 1000;
 
     it('is always true', () => {
-      expect(constraints.test(patient, valid)).toBe(true);
+      expect(constraint.test(patient, valid)).toBe(true);
     });
   });
 });
 
-describe('addMaxPatientsForMS()', () => {
-  let constraints = (new Constraints()).addMaxPatientsForMS(4);
+describe('maxPatientsForMS()', () => {
+  let constraint = Constraint.maxPatientsForMS(4);
 
   describe('when the patient is IMC', () => {
     let patient = new Patient({ status: Status.IMC })
@@ -43,7 +43,7 @@ describe('addMaxPatientsForMS()', () => {
     valid.totalPatients = 1000;
 
     it('is always true', () => {
-      expect(constraints.test(patient, valid)).toBe(true);
+      expect(constraint.test(patient, valid)).toBe(true);
     });
   });
 
@@ -56,15 +56,15 @@ describe('addMaxPatientsForMS()', () => {
     let invalid = new Assignment();
     invalid.totalPatients = 4;
 
-    it('limits the assignment to 3 patients.', () => {
-      expect(constraints.test(patient, valid)).toBe(true);
-      expect(constraints.test(patient, invalid)).toBe(false);
+    it('limits the assignment to "n" patients.', () => {
+      expect(constraint.test(patient, valid)).toBe(true);
+      expect(constraint.test(patient, invalid)).toBe(false);
     });
   });
 });
 
-describe('isValidAcuity()', () => {
-    let constraints = (new Constraints()).addMaxTotalAcuity(10);
+describe('maxTotalAcuity()', () => {
+    let constraint = Constraint.maxTotalAcuity(10);
     let patient = new Patient({ acuity: 3 })
 
     let valid = new Assignment();
@@ -74,7 +74,7 @@ describe('isValidAcuity()', () => {
     invalid.totalAcuity = 8;
 
   it('limits the assignment to "n" acuity.', () => {
-    expect(constraints.test(patient, valid)).toBe(true);
-    expect(constraints.test(patient, invalid)).toBe(false);
+    expect(constraint.test(patient, valid)).toBe(true);
+    expect(constraint.test(patient, invalid)).toBe(false);
   });
 });
