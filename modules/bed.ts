@@ -1,5 +1,8 @@
 import * as T from "./types.js"
 
+import { BedStatus } from "./bed_status.js"
+import { Patient } from "./patient.js"
+
 export class Bed {
 
   static fromString(s: string): Bed {
@@ -13,10 +16,24 @@ export class Bed {
 
   readonly roomNumber: T.RoomNumber;
   readonly bedNumber?: T.BedNumber;
+  readonly status: BedStatus;
+  readonly patient?: Patient;
 
-  constructor(r: T.RoomNumber, b: T.BedNumber) {
-    this.roomNumber = r;
-    if (b) { this.bedNumber = b; }
+  constructor({
+    room,
+    bed,
+    status,
+    patient,
+  }: {
+    room: T.RoomNumber,
+    bed: T.BedNumber,
+    status: BedStatus,
+    patient: Patient
+  }) {
+    this.roomNumber = room;
+    this.bedNumber = bed;
+    this.status = status;
+    this.patient = patient;
   }
 
   label(): string {

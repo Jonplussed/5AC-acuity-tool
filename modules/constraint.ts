@@ -1,8 +1,9 @@
 import * as T from "./types.js"
 
 import { Bed } from "./bed.js"
-import { Status } from "./status.js"
+import { BedStatus } from "./bed_status.js"
 import { Patient } from "./patient.js"
+import { PatientStatus } from "./patient_status.js"
 import { Assignment } from "./assignment.js"
 
 type Condition = (p: Patient, a: Assignment) => boolean;
